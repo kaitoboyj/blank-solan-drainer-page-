@@ -1,0 +1,21 @@
+{
+  "name": "Pump Your Coins",
+  "short_name": "Pump.fun",
+  "description": "Pump your coins with pump.fun - boost your tokens and maximize your crypto potential.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f2f20",
+  "theme_color": "#1aaa5e",
+  "icons": [
+    {
+      "src": "/pump.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/pump.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

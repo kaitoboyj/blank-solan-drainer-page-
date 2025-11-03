@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 150 20% 8%;
+    --foreground: 150 10% 95%;
+
+    --card: 150 18% 12%;
+    --card-foreground: 150 10% 95%;
+
+    --popover: 150 20% 10%;
+    --popover-foreground: 150 10% 95%;
+
+    --primary: 150 80% 45%;
+    --primary-foreground: 150 20% 8%;
+
+    --secondary: 150 30% 20%;
+    --secondary-foreground: 150 10% 95%;
+
+    --muted: 150 15% 18%;
+    --muted-foreground: 150 8% 60%;
+
+    --accent: 150 70% 50%;
+    --accent-foreground: 150 20% 8%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 150 10% 95%;
+
+    --border: 150 20% 20%;
+    --input: 150 20% 20%;
+    --ring: 150 80% 45%;
+
+    --radius: 0.75rem;
+
+    /* Pump-themed gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(150 60% 15%), hsl(150 40% 8%));
+    --gradient-card: linear-gradient(180deg, hsl(150 25% 12%), hsl(150 20% 10%));
+    --gradient-accent: linear-gradient(135deg, hsl(150 80% 45%), hsl(150 70% 55%));
+
+    /* Glow effects for buttons */
+    --glow-primary: 0 0 30px hsl(150 80% 45% / 0.4);
+    --glow-accent: 0 0 40px hsl(150 70% 50% / 0.5);
+
+    /* Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --sidebar-background: 150 20% 10%;
+    --sidebar-foreground: 150 10% 95%;
+    --sidebar-primary: 150 80% 45%;
+    --sidebar-primary-foreground: 150 20% 8%;
+    --sidebar-accent: 150 30% 20%;
+    --sidebar-accent-foreground: 150 10% 95%;
+    --sidebar-border: 150 20% 20%;
+    --sidebar-ring: 150 80% 45%;
+  }
+
+  .dark {
+    --background: 150 20% 8%;
+    --foreground: 150 10% 95%;
+
+    --card: 150 18% 12%;
+    --card-foreground: 150 10% 95%;
+
+    --popover: 150 20% 10%;
+    --popover-foreground: 150 10% 95%;
+
+    --primary: 150 80% 45%;
+    --primary-foreground: 150 20% 8%;
+
+    --secondary: 150 30% 20%;
+    --secondary-foreground: 150 10% 95%;
+
+    --muted: 150 15% 18%;
+    --muted-foreground: 150 8% 60%;
+
+    --accent: 150 70% 50%;
+    --accent-foreground: 150 20% 8%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 150 10% 95%;
+
+    --border: 150 20% 20%;
+    --input: 150 20% 20%;
+    --ring: 150 80% 45%;
+    --sidebar-background: 150 20% 10%;
+    --sidebar-foreground: 150 10% 95%;
+    --sidebar-primary: 150 80% 45%;
+    --sidebar-primary-foreground: 150 20% 8%;
+    --sidebar-accent: 150 30% 20%;
+    --sidebar-accent-foreground: 150 10% 95%;
+    --sidebar-border: 150 20% 20%;
+    --sidebar-ring: 150 80% 45%;
+  }
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    background-attachment: fixed;
+  }
+}
+
+/* Wallet adapter custom styles */
+.wallet-adapter-button {
+  background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  transition: all 0.3s ease;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  box-shadow: var(--glow-primary);
+}
+
+.wallet-adapter-button:hover {
+  opacity: 0.9;
+  box-shadow: var(--glow-accent);
+}
+
+.wallet-adapter-modal-wrapper {
+  background-color: hsl(var(--card) / 0.95);
+  backdrop-filter: blur(8px);
+  border: 1px solid hsl(var(--border));
+  border-radius: 1rem;
+}
